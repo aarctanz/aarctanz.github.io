@@ -7,5 +7,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: "https://aarctanz.github.io/"
+  site: "https://aarctanz.github.io/",
+  base: "/"
 });
