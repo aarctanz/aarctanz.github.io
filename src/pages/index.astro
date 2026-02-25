@@ -1,13 +1,104 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+import "../styles/global.css";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// NOTE: Once you start writing actual markdown files, delete this mock array and uncomment the line below it.
+const posts = [
+	{ url: '#', frontmatter: { title: 'Setting up a bare-metal homelab', date: '2026-02-25' } },
+	{ url: '#', frontmatter: { title: 'Why I moved to Astro', date: '2026-01-10' } }
+];
+// const posts = await Astro.glob('../pages/blog/*.md');
+
+const projects = [
+	{ name: 'Terminal Portfolio', desc: 'A retro terminal styled portfolio built in Rust', github: 'https://github.com/arctan/term', live: 'https://arctan.me' },
+	{ name: 'Go Scheduler', desc: 'Minimal distributed task scheduler', github: 'https://github.com/arctan/sched', live: '' }
+];
 ---
 
-<Layout>
-	<!-- <Welcome /> -->
-	<h3 class="text-2xl font-bold text-purple-500">Hello</h3>
+<Layout title="Arctan">
+	<!-- Hero Section -->
+	<section class="mb-6 py-6">
+		<h1 class="text-4xl font-bold mb-6 ">Arctan</h1>
+
+		<img
+			src="/public/chigiri.jpeg"
+			alt="arctan profile"
+			class="w-24 h-24 rounded mb-2 object-cover grayscale hover:grayscale-0 transition-all duration-300"
+		/>
+
+		<p class="leading-relaxed opacity-90 mb-2 text-lg ">
+			Hi, I'm Arctan
+			<br>
+			An engineer who loves to tinker with distributed systems, databases, and core backend stuff.
+		</p>
+
+		<div class="flex items-center gap-2 mb-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+			<span class="relative flex h-2 w-2">
+			  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+			  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+			</span>
+			Looking for work
+		</div>
+
+		<div class="flex gap-2 text-sm font-medium opacity-80">
+			<a href="https://github.com/aarctanz" target="_blank" class="hover:underline hover:opacity-100 transition-opacity underline text-primary">GitHub</a>
+			<a href="https://twitter.com/aarctanz" target="_blank" class="hover:underline hover:opacity-100 transition-opacity underline text-primary">Twitter</a>
+		</div>
+	</section>
+
+	<!-- Blog Section -->
+	<section id="blog" class="mb-6 py-6 border-t border-border">
+		<h2 class="text-xl font-bold mb-2">side quest</h2>
+		<ul class="flex flex-col gap-1">
+			{posts.map(post => (
+				<li>
+					<a href={post.url} class="group flex flex-col sm:flex-row sm:justify-between sm:items-baseline ">
+						<span class="text-lg group-hover:underline opacity-90 group-hover:opacity-100 transition-opacity">{post.frontmatter.title}</span>
+						<span class="text-sm opacity-50 font-mono sm:ml-4">{post.frontmatter.date}</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<!-- Projects Section -->
+	<section id="projects" class="py-6 mb-6 border-t border-border">
+		<h2 class="text-xl font-bold mb-2">projects</h2>
+		<ul class="flex flex-col gap-1">
+			{projects.map(p => (
+				<li class="flex flex-col sm:flex-row sm:items-baseline gap-2">
+					<div class="flex-1">
+						<span class="font-medium text-lg opacity-90">{p.name}</span>
+						<span class="opacity-50 mx-1">:</span>
+						<span class="opacity-80 text-sm">{p.desc}</span>
+					</div>
+					<div class="flex gap-3 text-sm font-mono opacity-60 mt-1 sm:mt-0">
+						{p.github && <a href={p.github} target="_blank" class="hover:underline hover:opacity-100">github</a>}
+						{p.live && <a href={p.live} target="_blank" class="hover:underline hover:opacity-100">live</a>}
+					</div>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<!-- CTA -->
+	<section class="py-6 border-t border-border">
+      <div class="mx-auto text-center">
+        <p class="text-xl tracking-tight text-foreground mb-2">
+          let's build something together
+        </p>
+        <p class="text-muted-foreground text-md mb-8 max-w-md mx-auto">
+          Open for freelance projects and collaborations.
+        </p>
+        <a
+          href="mailto:hello@arctan.dev"
+          class="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+        >
+          <span>Get in touch</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </section>
 </Layout>

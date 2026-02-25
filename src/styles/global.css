@@ -1,1 +1,98 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+:root {
+  /* Pale Slate palette - Light Mode */
+  --background: 220 9% 95%;        /* #f1f2f4 */
+  --foreground: 210 11% 10%;       /* #17191c */
+
+  --card: 200 9% 90%;              /* #e3e6e8 */
+  --card-foreground: 210 11% 10%;  /* #17191c */
+
+  --popover: 220 9% 95%;           /* #f1f2f4 */
+  --popover-foreground: 210 11% 10%; /* #17191c */
+
+  --primary: 210 11% 20%;          /* #2d3339 */
+  --primary-foreground: 220 9% 95%; /* #f1f2f4 */
+
+  --secondary: 210 11% 86%;        /* #c6ccd2 */
+  --secondary-foreground: 210 11% 20%; /* #2d3339 */
+
+  --muted: 210 11% 86%;            /* #c6ccd2 */
+  --muted-foreground: 213 10% 50%; /* #717f8e */
+
+  --accent: 213 10% 70%;           /* #aab3bb */
+  --accent-foreground: 210 11% 20%; /* #2d3339 */
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 220 9% 95%;
+
+  --border: 210 11% 86%;           /* #c6ccd2 */
+  --input: 210 11% 86%;            /* #c6ccd2 */
+  --ring: 213 10% 60%;             /* #8e99a4 */
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Carbon Black palette - Dark Mode */
+  --background: 220 14% 7%;        /* #101214 */
+  --foreground: 200 9% 90%;        /* #e3e6e8 */
+
+  --card: 210 11% 10%;             /* #17191c */
+  --card-foreground: 200 9% 90%;   /* #e3e6e8 */
+
+  --popover: 220 14% 7%;           /* #101214 */
+  --popover-foreground: 200 9% 90%; /* #e3e6e8 */
+
+  --primary: 200 9% 90%;           /* #e3e6e8 */
+  --primary-foreground: 220 14% 7%; /* #101214 */
+
+  --secondary: 210 11% 20%;        /* #2d3339 */
+  --secondary-foreground: 220 9% 90%; /* #e3e6e8 */
+
+  --muted: 210 11% 20%;            /* #2d3339 */
+  --muted-foreground: 213 10% 45%; /* #717f8e */
+
+  --accent: 213 10% 30%;           /* #444c55 */
+  --accent-foreground: 220 9% 90%; /* #e3e6e8 */
+
+  --destructive: 0 60% 55%;
+  --destructive-foreground: 220 14% 7%;
+
+  --border: 210 11% 20%;           /* #2d3339 */
+  --input: 210 11% 20%;            /* #2d3339 */
+  --ring: 213 10% 40%;             /* #5b6671 */
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
