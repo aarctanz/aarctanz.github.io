@@ -1,0 +1,55 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts.map((post: { slug: any; }) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+const { post } = Astro.props;
+
+const { Content } = await post.render();
+const html = await post.render().then(({ Content }) => Content);
+const text = html.toString().replace(/<[^>]+>/g, " ");
+const words = text.trim().split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 200));
+
+---
+
+<Layout title={post.data.title}>
+  <article class="mx-auto">
+    <header class="mb-8">
+      <h1 class="text-4xl font-semibold mb-2 text-foreground">
+        {post.data.title}
+      </h1>
+      <div class="flex items-center gap-2 text-sm text-muted-foreground">
+        <span>{post.data.pubDate}</span>
+        <span>•</span>
+        <span>{minutes} min read</span>
+      </div>
+      <!-- Image -->
+      {post.data.heroImage && (
+        <img
+          src={post.data.heroImage}
+          alt={post.data.title}
+          class="mt-6 rounded-lg object-cover w-full max-h-96"
+        />
+      )}
+    </header>
+
+    <div class="prose prose-sm dark:prose-invert max-w-none text-lg">
+      <Content />
+    </div>
+
+  </article>
+</Layout>
