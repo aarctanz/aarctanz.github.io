@@ -19,10 +19,11 @@ interface Props {
 const { post } = Astro.props;
 
 const { Content } = await post.render();
-const html = await post.render().then(({ Content }) => Content);
-const text = html.toString().replace(/<[^>]+>/g, " ");
-const words = text.trim().split(/\s+/).filter(Boolean).length;
-const minutes = Math.max(1, Math.round(words / 200));
+
+const md = post.body;
+const words = md.trim().split(/\s+/).filter(Boolean).length;
+const minutes = Math.max(1, Math.round(words / 120));
+
 
 ---
 
@@ -33,7 +34,7 @@ const minutes = Math.max(1, Math.round(words / 200));
         {post.data.title}
       </h1>
       <div class="flex items-center gap-2 text-sm text-muted-foreground">
-        <span>{post.data.pubDate}</span>
+        <span>{post.data.pubDate.toDateString()}</span>
         <span>•</span>
         <span>{minutes} min read</span>
       </div>

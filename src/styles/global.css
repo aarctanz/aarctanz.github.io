@@ -30,12 +30,13 @@
 }
 
 :root {
-  /* Pale Slate palette - Light Mode */
-  --background: 220 9% 95%;        /* #f1f2f4 */
-  --foreground: 210 11% 10%;       /* #17191c */
 
-  --card: 200 9% 90%;              /* #e3e6e8 */
-  --card-foreground: 210 11% 10%;  /* #17191c */
+  /* Warm Linen palette - Eye-friendly Light Mode */
+  --background: 40 14% 94%;        /* #f3f1ee - Warm, slightly creamy off-white */
+  --foreground: 20 10% 12%;       /* #201e1c - Soft Charcoal with a hint of brown */
+
+  --card: 40 10% 90%;              /* #e8e6e1 - Slightly deeper warm grey */
+  --card-foreground: 20 10% 12%;
 
   --popover: 220 9% 95%;           /* #f1f2f4 */
   --popover-foreground: 210 11% 10%; /* #17191c */
