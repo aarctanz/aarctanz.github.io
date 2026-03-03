@@ -1,0 +1,38 @@
+---
+// src/pages/blog/index.astro
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<Layout title="Blog • arctan">
+    <section class="mx-auto">
+        <h1 class="text-xl font-semibold mb-6 text-foreground">Blogs <span class="text-muted-foreground">({posts.length})</span></h1>
+
+        <ul class="flex flex-col gap-6">
+            {
+                posts.map((post) => (
+                    <li>
+                        <a href={`/blog/${post.slug}/`} class="group flex flex-col gap-3 rounded-lg  bg-background  transition-colors py-4 hover:underline">
+
+                            <div class="space-y-1">
+                                <h2 class="text-foreground group-hover:text-primary transition-colors">
+                                <span class="text-secondary-foreground">
+                                    {post.data.pubDate.toLocaleDateString("en-US", {
+                                        month: "short",
+                                        day: "2-digit",
+                                        year: "numeric",
+                                    })}
+                                </span>:
+                                <span class="font-semibold ">{post.data.title}</span>
+                            </h2>
+
+                            </div>
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+</Layout>
