@@ -8,27 +8,21 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.getTim
 
 <Layout title="Blog • arctan">
     <section class="mx-auto">
-        <h1 class="text-xl font-semibold mb-6 text-foreground">Blogs <span class="text-muted-foreground">({posts.length})</span></h1>
+        <h1 class="text-xl font-semibold mb-6 text-foreground">blogs</h1>
 
-        <ul class="flex flex-col gap-6">
+        <ul class="flex flex-col">
             {
                 posts.map((post) => (
                     <li>
-                        <a href={`/blog/${post.slug}/`} class="group flex flex-col gap-3 rounded-lg  bg-background  transition-colors py-4 hover:underline">
-
-                            <div class="space-y-1">
-                                <h2 class="text-foreground group-hover:text-primary transition-colors">
-                                <span class="text-secondary-foreground">
-                                    {post.data.pubDate.toLocaleDateString("en-US", {
-                                        month: "short",
-                                        day: "2-digit",
-                                        year: "numeric",
-                                    })}
-                                </span>:
-                                <span class="font-semibold ">{post.data.title}</span>
-                            </h2>
-
-                            </div>
+                        <a href={`/blog/${post.slug}/`} class="group flex justify-between items-baseline py-2 border-b border-border/30 hover:border-border/60 transition-colors">
+                            <span class="text-lg group-hover:underline">{post.data.title}</span>
+                            <span class="text-sm opacity-50">
+                                {post.data.pubDate.toLocaleDateString("en-US", {
+                                    month: "short",
+                                    day: "2-digit",
+                                    year: "numeric",
+                                })}
+                            </span>
                         </a>
                     </li>
                 ))

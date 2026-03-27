@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const projects = [
+    {
+        name: "Exec0",
+        desc: "A code execution service API built in Go. Submit code, run it in an isolate sandbox with configurable resource limits, and retrieve results asynchronously.",
+        github: "https://github.com/aarctanz/Exec0",
+    },
+    {
+        name: "CodeSpardha",
+        desc: "Backend API for a placement helper system for NIT Kurukshetra. Built with Elysia + Bun + Drizzle + PostgreSQL.",
+        github: "https://github.com/aarctanz/spring",
+        live: "https://contest.codespardha.me",
+    },
+];
+---
+
+<Layout title="Projects • arctan">
+    <section class="mx-auto">
+        <h1 class="text-xl font-semibold mb-6 text-foreground">projects</h1>
+
+        <ul class="flex flex-col">
+            {
+                projects.map((p) => (
+                    <li class="py-4 border-b border-border/30">
+                        <a href={p.github} target="_blank" class="group">
+                            <span class="text-lg group-hover:underline">{p.name}</span>
+                        </a>
+                        {p.live && (
+                            <a href={p.live} target="_blank" class="ml-2 text-sm opacity-60 hover:underline">
+                                (live)
+                            </a>
+                        )}
+                        <p class="opacity-70 mt-1">{p.desc}</p>
+                    </li>
+                ))
+            }
+        </ul>
+    </section>
+</Layout>

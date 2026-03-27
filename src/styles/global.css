@@ -109,6 +109,10 @@ body {
   color: hsl(var(--foreground));
   line-height: 1.7;
   padding: 2rem;
+  margin: 0 auto;
+}
+
+main {
   max-width: 1200px;
   margin: 0 auto;
 }
