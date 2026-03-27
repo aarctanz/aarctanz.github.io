@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
+@font-face {
+  font-family: 'IoskeleyMono';
+  src: url('/fonts/WOFF2/IoskeleyMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -27,6 +35,8 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  --font-mono: "IoskeleyMono", monospace;
 }
 
 :root {
@@ -97,4 +107,8 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
+  line-height: 1.7;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
