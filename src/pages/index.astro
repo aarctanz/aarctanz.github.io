@@ -10,12 +10,12 @@ const posts = (await getCollection("blog")).sort(
 const projects = [
     {
         name: "Exec0",
-        desc: "Code execution API in Go with isolate sandbox",
+        desc: "Code Execution Engine in Go with isolate sandbox",
         github: "https://github.com/aarctanz/Exec0",
     },
     {
         name: "CodeSpardha",
-        desc: "Placement helper system API in TypeScript",
+        desc: "In house contest system for NIT Kurukshetra, Uses Exec0 for code Execution",
         github: "https://github.com/aarctanz/spring",
         live: "https://contest.codespardha.me",
     },
@@ -31,11 +31,11 @@ const projects = [
             class="w-24 h-24 rounded mb-4 object-cover grayscale hover:grayscale-0 transition-all duration-300"
         />
 
-        <h1 class="text-[2.5rem] tracking-tight mb-4">ABHINAV KUMAR</h1>
+        <h1 class="text-[2.5rem] tracking-wide">ABHINAV KUMAR</h1>
 
-        <p class="leading-relaxed opacity-90 mb-4 text-lg">
-            An engineer who loves to tinker with distributed systems, databases,
-            and core backend stuff.
+        <p class="leading-relaxed opacity-90 mb-4 text-lg text-accent">
+            FAFOing around in distributed systems, databases, and core backend
+            space.
         </p>
 
         <div
@@ -70,7 +70,9 @@ const projects = [
 
     <!-- Blog Section -->
     <section id="blog" class="py-6 border-t border-border/30">
-        <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">blogs</h2>
+        <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">
+            blogs
+        </h2>
         <ul class="flex flex-col gap-2">
             {
                 posts.map((post) => (
@@ -101,7 +103,9 @@ const projects = [
 
     <!-- Projects Section -->
     <section id="projects" class="py-6 border-t border-border/30">
-        <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">projects</h2>
+        <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">
+            projects
+        </h2>
         <ul class="flex flex-col gap-2">
             {
                 projects.map((p) => (
@@ -137,11 +141,27 @@ const projects = [
         </ul>
     </section>
 
+    <!-- Education Section -->
+    <section id="education" class="py-6 border-t border-border/30">
+        <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">
+            education
+        </h2>
+        <ul class="flex flex-col gap-4">
+            <li>
+                <div>Master of Computer Applications (MCA)</div>
+                <div class="opacity-50">NIT Kurukshetra — 2024 to Present</div>
+            </li>
+        </ul>
+    </section>
+
     <!-- CTA -->
     <section class="py-6 border-t border-border/30">
         <p class="text-lg opacity-80">
             Open for freelance projects and collaborations.
-            <a href="mailto:arctan0@proton.me" class="underline hover:opacity-100">Get in touch</a>
+            <a
+                href="mailto:arctan0@proton.me"
+                class="underline hover:opacity-100">Get in touch</a
+            >
         </p>
     </section>
 </Layout>

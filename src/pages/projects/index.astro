@@ -9,7 +9,7 @@ const projects = [
     },
     {
         name: "CodeSpardha",
-        desc: "Backend API for a placement helper system for NIT Kurukshetra. Built with Elysia + Bun + Drizzle + PostgreSQL.",
+        desc: "Contest system for NIT Kurukshetra. Built with Elysia + Bun + Drizzle + PostgreSQL. Uses Exec0 for code execution.",
         github: "https://github.com/aarctanz/spring",
         live: "https://contest.codespardha.me",
     },
@@ -25,10 +25,16 @@ const projects = [
                 projects.map((p) => (
                     <li class="py-4 border-b border-border/30">
                         <a href={p.github} target="_blank" class="group">
-                            <span class="text-lg group-hover:underline">{p.name}</span>
+                            <span class="text-lg group-hover:underline">
+                                {p.name}
+                            </span>
                         </a>
                         {p.live && (
-                            <a href={p.live} target="_blank" class="ml-2 text-sm opacity-60 hover:underline">
+                            <a
+                                href={p.live}
+                                target="_blank"
+                                class="ml-2 text-sm opacity-60 hover:underline"
+                            >
                                 (live)
                             </a>
                         )}

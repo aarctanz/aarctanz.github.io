@@ -3,7 +3,9 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const posts = (await getCollection("blog")).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
 ---
 
 <Layout title="Blog • arctan">
@@ -14,8 +16,13 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.getTim
             {
                 posts.map((post) => (
                     <li>
-                        <a href={`/blog/${post.slug}/`} class="group flex justify-between items-baseline py-2 border-b border-border/30 hover:border-border/60 transition-colors">
-                            <span class="text-lg group-hover:underline">{post.data.title}</span>
+                        <a
+                            href={`/blog/${post.slug}/`}
+                            class="group flex justify-between items-baseline py-2 border-b border-border/30 hover:border-border/60 transition-colors"
+                        >
+                            <span class="text-lg group-hover:underline">
+                                {post.data.title}
+                            </span>
                             <span class="text-sm opacity-50">
                                 {post.data.pubDate.toLocaleDateString("en-US", {
                                     month: "short",
