@@ -8,7 +8,11 @@ const posts = (await getCollection("blog")).sort(
 );
 ---
 
-<Layout title="Blog • arctan">
+<Layout
+    title="Blog • arctan"
+    description="A collection of FAFO."
+    ogImage="/og-image.png"
+>
     <section class="mx-auto">
         <h1 class="text-xl font-semibold mb-6 text-foreground">blogs</h1>
 

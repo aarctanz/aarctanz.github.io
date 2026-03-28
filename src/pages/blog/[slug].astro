@@ -24,7 +24,11 @@ const words = md.trim().split(/\s+/).filter(Boolean).length;
 const minutes = Math.max(1, Math.round(words / 120));
 ---
 
-<Layout title={post.data.title}>
+<Layout
+    title={post.data.title}
+    description={post.data.description}
+    ogImage={post.data.heroImage ?? ""}
+>
     <article class="mx-auto max-w-192">
         <header class="mb-8">
             <h1 class="text-3xl font-semibold mb-2 text-foreground">
