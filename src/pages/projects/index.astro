@@ -95,7 +95,6 @@ const projects = [
         ],
         tags: ["bash", "python", "openmpi", "nfs"],
         categories: ["Infra", "Distributed Systems"],
-        note: "self-hosted cluster · not on github",
     },
 ];
 ---
@@ -233,11 +232,7 @@ const projects = [
                                         {p.repo} ↗
                                     </a>
                                 ) : (
-                                    p.note && (
-                                        <span class="opacity-40 italic">
-                                            {p.note}
-                                        </span>
-                                    )
+                                    <></>
                                 )}
                             </div>
                         </div>
