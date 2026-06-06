@@ -1,51 +1,296 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 
+const filters = [
+    "All",
+    "Distributed Systems",
+    "Backend",
+    "Full Stack",
+    "Infra",
+];
+
 const projects = [
     {
+        name: "crawlr",
+        repo: "aarctanz/crawlr",
+        year: "2026",
+        lang: "go",
+        status: "WIP",
+        tagline: "Distributed web crawler in Go targetting 1B pages.",
+        desc: "Custom unbounded queue with per-host FIFO queues and a min-heap keyed on a 'ready' timestamp for scheduling URLs. Lock free observability with atomic counters, 5s time series sampling, and p50/95/99 latency histograms(fetch/parse/total).",
+        highlights: [
+            "Currently peak ~3000 pages/minute on 10,000-page run · 82% fetch/parse successful",
+        ],
+        roadmap: [
+            "per-domain semaphore",
+            "robots.txt politeness",
+            "fetch→parse→extract→dedup pipeline",
+            "priority frontier",
+            "Redis/disk-backed persistent frontier",
+            "distributed frontier (consistent hashing, Bloom-filter dedup)",
+        ],
+        tags: ["go"],
+        categories: ["Distributed Systems", "Backend"],
+        github: "https://github.com/aarctanz/crawlr",
+    },
+    {
         name: "Exec0",
-        desc: "A code execution service API built in Go. Submit code, run it in an isolate sandbox with configurable resource limits, and retrieve results asynchronously.",
+        repo: "aarctanz/Exec0",
+        year: "2026",
+        lang: "go",
+        status: "",
+        tagline: "Remote code execution service for running untrusted code.",
+        desc: "Isolate + cgroup for sandboxing and per-submission resource limits clamped to maxima. Asynq/Redis job queue with worker pool for executing code asynchronously.",
+        highlights: [
+            "63 executions/second under load testing with 40 workers on 10 cores machine.",
+        ],
+        tags: ["go", "postgres", "redis", "asynq", "isolate"],
+        categories: ["Backend", "Distributed Systems"],
         github: "https://github.com/aarctanz/Exec0",
+    },
+
+    {
+        name: "alchemx-y",
+        repo: "aarctanz/alchemx-y",
+        year: "2026",
+        lang: "terraform",
+        status: "",
+        tagline:
+            "A distributed inference mesh on GCP, provisioned end-to-end with Terraform.",
+        desc: "Three-VM iii worker mesh behind one public hop. Custom-mode VPC with default-deny ingress, no-external-IP workers reaching out via Cloud NAT, IAP-only SSH, and per-VM systemd provisioning from metadata startup scripts.",
+        highlights: [
+            "Default-deny VPC · 3 firewall rules (api, internal, IAP-SSH) · hub port :49134 never leaves the subnet",
+            "Gateway pinned to static internal IP so workers hit a fixed III_URL regardless of boot order",
+        ],
+        tags: ["terraform", "gcp"],
+        categories: ["Infra", "Distributed Systems"],
+        github: "https://github.com/aarctanz/alchemx-y",
     },
     {
         name: "CodeSpardha",
-        desc: "Contest system for NIT Kurukshetra. Built with Elysia + Bun + Drizzle + PostgreSQL. Uses Exec0 for code execution.",
+        repo: "aarctanz/spring",
+        year: "2025",
+        lang: "Typescript",
+        status: "live",
+        tagline: "In-house contest system for NIT Kurukshetra.",
+        desc: "A full contest platform built with Elysia + Bun + Drizzle + PostgreSQL. Every submission is compiled and run through Exec0, giving isolated, resource-limited execution for hundreds of concurrent contestants.",
+        highlights: [
+            "Organised weekly contest at our department with 100+ participants",
+        ],
+        tags: ["bun", "elysia", "postgres", "drizzle"],
+        categories: ["Full Stack", "Backend"],
         github: "https://github.com/aarctanz/spring",
         live: "https://contest.codespardha.me",
+    },
+    {
+        name: "Distributed Computing Cluster",
+        year: "2025",
+        lang: "shell",
+        status: "",
+        tagline:
+            "Distributed computing cluster of 24 nodes (23 compute + 1 master) for parallel processing.",
+        desc: "All nodes running Ubuntu 24, connected through a passwordless SSH mesh, OpenMPI for inter-node communication, and an NFS-shared build.",
+        highlights: [
+            "3-node run · HPL 30k×30k (NB=192): 49→132.7 GFLOPS, 366.8s→135.6s — 2.7×, ~90% parallel efficiency · Monte Carlo π (100B points): 339.7s→163.8s — 2.07×, identical accuracy",
+        ],
+        tags: ["bash", "python", "openmpi", "nfs"],
+        categories: ["Infra", "Distributed Systems"],
+        note: "self-hosted cluster · not on github",
     },
 ];
 ---
 
 <Layout
     title="Projects • arctan"
-    description="Side quests"
+    description="Distributed systems, databases, and the stuff in between."
     ogImage="/og-image.png"
 >
-    <section class="mx-auto">
-        <h1 class="text-xl font-semibold mb-6 text-foreground">projects</h1>
+    <section class="mx-auto max-w-3xl">
+        <header class="mb-8">
+            <h1 class="text-3xl tracking-wide text-foreground">projects</h1>
+            <p class="opacity-60 text-sm mt-2">
+                Distributed systems, databases, and the stuff in between.
+            </p>
+        </header>
 
-        <ul class="flex flex-col">
+        {/* filter bar */}
+        <div
+            id="filter-bar"
+            class="flex flex-wrap gap-2 mb-8 pb-6 border-b border-border/30 text-xs"
+        >
             {
-                projects.map((p) => (
-                    <li class="py-4 border-b border-border/30">
-                        <a href={p.github} target="_blank" class="group">
-                            <span class="text-lg group-hover:underline">
-                                {p.name}
-                            </span>
-                        </a>
-                        {p.live && (
-                            <a
-                                href={p.live}
-                                target="_blank"
-                                class="ml-2 text-sm opacity-60 hover:underline"
-                            >
-                                (live)
-                            </a>
-                        )}
-                        <p class="opacity-70 mt-1">{p.desc}</p>
-                    </li>
+                filters.map((f, i) => (
+                    <button
+                        type="button"
+                        data-filter={f}
+                        class:list={[
+                            "filter-btn rounded-full border px-3 py-1 transition-colors cursor-pointer",
+                            i === 0
+                                ? "border-foreground/60 bg-foreground/5 text-foreground"
+                                : "border-border/60 opacity-60 hover:opacity-100",
+                        ]}
+                    >
+                        {f}
+                    </button>
                 ))
             }
-        </ul>
+        </div>
+
+        {/* featured cards */}
+        <div class="flex flex-col gap-5">
+            {
+                projects.map((p) => (
+                    <article
+                        class="project-card group rounded-lg border border-border/60 bg-card/20 p-6 transition-colors hover:border-border hover:bg-card/50"
+                        data-categories={p.categories.join(",")}
+                    >
+                        {/* meta row */}
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="opacity-50">{p.year}</span>
+                            <span class="opacity-30">·</span>
+                            <span class="uppercase tracking-wider opacity-60">
+                                {p.lang}
+                            </span>
+                            {p.status && (
+                                <>
+                                    <span class="opacity-30">·</span>
+                                    <span
+                                        class:list={[
+                                            "uppercase tracking-wider text-[0.65rem]",
+                                            p.status === "live"
+                                                ? "text-emerald-600 dark:text-emerald-400"
+                                                : "text-amber-600 dark:text-amber-400",
+                                        ]}
+                                    >
+                                        {p.status}
+                                    </span>
+                                </>
+                            )}
+                        </div>
+
+                        {/* title + tagline */}
+                        <h2 class="text-xl mt-3 text-foreground">{p.name}</h2>
+                        <p class="text-sm opacity-80 mt-1">{p.tagline}</p>
+
+                        {/* description */}
+                        <p class="text-sm opacity-80 leading-relaxed mt-4">
+                            {p.desc}
+                        </p>
+
+                        {/* under the hood */}
+                        <ul class="mt-4 flex flex-col gap-1.5">
+                            {p.highlights.map((h) => (
+                                <li class="flex gap-2 text-sm opacity-70">
+                                    <span class="opacity-40 select-none">
+                                        ›
+                                    </span>
+                                    <span>{h}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        {/* roadmap */}
+                        {p.roadmap && (
+                            <div class="mt-5">
+                                <span class="text-[0.65rem] uppercase tracking-wider opacity-40">
+                                    roadmap
+                                </span>
+                                <ul class="mt-2 flex flex-wrap gap-1.5">
+                                    {p.roadmap.map((r) => (
+                                        <li class="rounded border border-dashed border-border/50 px-2 py-0.5 text-[0.65rem] opacity-50">
+                                            {r}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {/* footer: tags + links */}
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-5 pt-4 border-t border-border/30">
+                            <div class="flex flex-wrap gap-1.5">
+                                {p.tags.map((t) => (
+                                    <span class="rounded border border-border/60 px-2 py-0.5 text-[0.65rem] opacity-50">
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
+                            <div class="flex items-center gap-4 text-xs opacity-60 shrink-0">
+                                {p.live && (
+                                    <a
+                                        href={p.live}
+                                        target="_blank"
+                                        class="hover:underline hover:opacity-100 transition-opacity"
+                                    >
+                                        live ↗
+                                    </a>
+                                )}
+                                {p.github ? (
+                                    <a
+                                        href={p.github}
+                                        target="_blank"
+                                        class="hover:underline hover:opacity-100 transition-opacity"
+                                    >
+                                        {p.repo} ↗
+                                    </a>
+                                ) : (
+                                    p.note && (
+                                        <span class="opacity-40 italic">
+                                            {p.note}
+                                        </span>
+                                    )
+                                )}
+                            </div>
+                        </div>
+                    </article>
+                ))
+            }
+
+            <p
+                id="empty-state"
+                class="hidden text-sm opacity-50 py-8 text-center"
+            >
+                Nothing here yet.
+            </p>
+        </div>
     </section>
 </Layout>
+
+<script is:inline>
+    function bindProjectFilters() {
+        const bar = document.getElementById("filter-bar");
+        if (!bar) return;
+
+        const buttons = Array.from(bar.querySelectorAll(".filter-btn"));
+        const cards = Array.from(document.querySelectorAll(".project-card"));
+        const empty = document.getElementById("empty-state");
+
+        const active = "border-foreground/60 bg-foreground/5 text-foreground";
+        const inactive = "border-border/60 opacity-60 hover:opacity-100";
+
+        function apply(filter) {
+            let visible = 0;
+            cards.forEach((card) => {
+                const cats = (card.dataset.categories || "").split(",");
+                const show = filter === "All" || cats.includes(filter);
+                card.classList.toggle("hidden", !show);
+                if (show) visible++;
+            });
+            if (empty) empty.classList.toggle("hidden", visible !== 0);
+        }
+
+        buttons.forEach((btn) => {
+            btn.onclick = () => {
+                buttons.forEach((b) => {
+                    active.split(" ").forEach((c) => b.classList.remove(c));
+                    inactive.split(" ").forEach((c) => b.classList.add(c));
+                });
+                inactive.split(" ").forEach((c) => btn.classList.remove(c));
+                active.split(" ").forEach((c) => btn.classList.add(c));
+                apply(btn.dataset.filter);
+            };
+        });
+    }
+
+    bindProjectFilters();
+    document.addEventListener("astro:after-swap", bindProjectFilters);
+</script>

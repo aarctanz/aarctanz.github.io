@@ -10,19 +10,24 @@ const posts = (await getCollection("blog")).sort(
 const projects = [
     {
         name: "Exec0",
-        desc: "Code Execution Engine in Go with isolate sandbox",
+        desc: "Code execution service in Go — isolate sandbox, asynq/Redis queue, per-run resource limits",
         github: "https://github.com/aarctanz/Exec0",
+        live: "",
     },
     {
-        name: "CodeSpardha",
-        desc: "In house contest system for NIT Kurukshetra, Uses Exec0 for code Execution",
-        github: "https://github.com/aarctanz/spring",
-        live: "https://contest.codespardha.me",
+        name: "crawlr",
+        desc: "Concurrent web crawler in Go with a single-scheduler frontier and per-domain politeness",
+        github: "https://github.com/aarctanz/crawlr",
+        live: "",
     },
 ];
 ---
 
-<Layout title="Abhinav Kumar" description="" ogImage="/og-image.png">
+<Layout
+    title="Abhinav Kumar"
+    description="Abhinav Kumar — learning distributed systems, databases, and core backend."
+    ogImage="/og-image.png"
+>
     <!-- Hero Section -->
     <section class="py-6">
         <img
@@ -33,9 +38,10 @@ const projects = [
 
         <h1 class="text-[2.5rem] tracking-wide">ABHINAV KUMAR</h1>
 
-        <p class="leading-relaxed opacity-90 mb-4 text-lg text-accent">
-            FAFOing around in distributed systems, databases, and core backend
-            space.
+        <p class="leading-relaxed opacity-70 mb-4 text-lg">
+            Spending most of time writing <span
+                class="bg-accent text-accent-foreground px-1 rounded">Go</span
+            > services, currently learning rust.
         </p>
 
         <div
@@ -71,7 +77,9 @@ const projects = [
     <!-- Blog Section -->
     <section id="blog" class="py-6 border-t border-border/30">
         <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">
-            blogs
+            <a href="/blog" class="group inline-flex items-center gap-1">
+                <span class="group-hover:underline">blogs</span>
+            </a>
         </h2>
         <ul class="flex flex-col gap-2">
             {
@@ -104,7 +112,9 @@ const projects = [
     <!-- Projects Section -->
     <section id="projects" class="py-6 border-t border-border/30">
         <h2 class="text-2xl mb-4 pb-2 border-b border-dashed border-border/50">
-            projects
+            <a href="/projects" class="group inline-flex items-center gap-1">
+                <span class="group-hover:underline">projects</span>
+            </a>
         </h2>
         <ul class="flex flex-col gap-2">
             {
@@ -127,13 +137,15 @@ const projects = [
                                     live
                                 </a>
                             )}
-                            <a
-                                href={p.github}
-                                target="_blank"
-                                class="hover:underline hover:opacity-100"
-                            >
-                                github
-                            </a>
+                            {p.github && (
+                                <a
+                                    href={p.github}
+                                    target="_blank"
+                                    class="hover:underline hover:opacity-100"
+                                >
+                                    github
+                                </a>
+                            )}
                         </div>
                     </li>
                 ))
